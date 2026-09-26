@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Khám Phá Vĩnh Long - Miền Sông Nước Thơ Mộng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'sans-serif'],
+                    },
+                    colors: {
+                        river: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(4, 120, 87, 0.85), rgba(2, 132, 199, 0.8)), url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+        }
+        .drop-cap::first-letter {
+            font-size: 3.5rem;
+            font-weight: 800;
+            float: left;
+            line-height: 1;
+            margin-right: 0.75rem;
+            color: #047857;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <div id="app" class="flex flex-col min-h-screen">
+        <!-- Navigation Header -->
+        <header id="navbar-container" class="sticky top-0 z-50 glass transition-all duration-300 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <!-- Logo -->
+                    <div class="flex items-center space-x-3 cursor-pointer" onclick="router.navigate('home')">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-sky-500 flex items-center justify-center text-white shadow-lg shadow-emerald-500/30">
+                            <i class="fa-solid fa-water text-xl"></i>
+                        </div>
+                        <div>
+                            <span id="brand-title" class="text-xl font-bold bg-gradient-to-r from-emerald-700 to-sky-700 bg-clip-text text-transparent">Vĩnh Long Tourism</span>
+                            <p class="text-xs text-slate-500 font-medium tracking-wide">Miền Sông Nước Thơ Mộng</p>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Navigation Links -->
+                    <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                        <button onclick="router.navigate('home')" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all hover:bg-emerald-50 hover:text-emerald-700" data-route="home">
+                            <i class="fa-solid fa-house mr-1.5"></i> Trang Chủ
+                        </button>
+                        <button onclick="router.navigate('destinations')" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all hover:bg-emerald-50 hover:text-emerald-700" data-route="destinations">
+                            <i class="fa-solid fa-map-location-dot mr-1.5"></i> Điểm Đến
+                        </button>
+                        <button onclick="router.navigate('cuisines')" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all hover:bg-emerald-50 hover:text-emerald-700" data-route="cuisines">
+                            <i class="fa-solid fa-utensils mr-1.5"></i> Ẩm Thực
+                        </button>
+                        <button onclick="router.navigate('ai')" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all hover:bg-emerald-50 hover:text-emerald-700 relative" data-route="ai">
+                            <i class="fa-solid fa-wand-magic-sparkles mr-1.5 text-amber-500"></i> Trợ Lý AI
+                            <span class="absolute -top-1 -right-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow">Hot</span>
+                        </button>
+                    </nav>
+
+                    <!-- User Account & Admin Actions -->
+                    <div class="flex items-center space-x-3">
+                        <div id="auth-nav-container" class="flex items-center space-x-3">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+                        <!-- Mobile Menu Toggle -->
+                        <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100">
+                            <i class="fa-solid fa-bars text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="hidden md:hidden glass border-t border-slate-200 px-4 pt-2 pb-4 space-y-2">
+                <button onclick="router.navigate('home'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-50 hover:text-emerald-700">
+                    <i class="fa-solid fa-house mr-2"></i> Trang Chủ
+                </button>
+                <button onclick="router.navigate('destinations'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-50 hover:text-emerald-700">
+                    <i class="fa-solid fa-map-location-dot mr-2"></i> Điểm Đến
+                </button>
+                <button onclick="router.navigate('cuisines'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-50 hover:text-emerald-700">
+                    <i class="fa-solid fa-utensils mr-2"></i> Ẩm Thực
+                </button>
+                <button onclick="router.navigate('ai'); toggleMobileMenu();" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-emerald-50 hover:text-emerald-700">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-2 text-amber-500"></i> Trợ Lý AI Du Lịch
+                </button>
+            </div>
+        </header>
+
+        <!-- Main View Container -->
+        <main id="main-content" class="flex-grow">
+            <!-- Rendered dynamically -->
+        </main>
+
+        <!-- Toast Notification Container -->
+        <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+        <!-- Auth Modal (Login / Register) -->
+        <div id="auth-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+            <div class="glass w-full max-w-md rounded-3xl p-8 shadow-2xl relative animate-in fade-in zoom-in duration-200">
+                <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                
+                <div id="auth-modal-content">
+                    <!-- Dynamic Login / Register Form -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-lg">
+                                <i class="fa-solid fa-water"></i>
+                            </div>
+                            <span class="text-xl font-bold text-white footer-brand-title">Vĩnh Long Tourism</span>
+                        </div>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            Cổng thông tin quảng bá du lịch Vĩnh Long chính thức. Khám phá vẻ đẹp hiền hòa, trù phú của vùng đất cù lao xanh mát giữa lòng miền Tây sông nước.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-semibold mb-4 text-base">Khám Phá Nhanh</h4>
+                        <ul class="space-y-2.5 text-sm">
+                            <li><a href="#" onclick="router.navigate('home')" class="hover:text-emerald-400 transition">Trang chủ</a></li>
+                            <li><a href="#" onclick="router.navigate('destinations')" class="hover:text-emerald-400 transition">Điểm đến nổi bật</a></li>
+                            <li><a href="#" onclick="router.navigate('cuisines')" class="hover:text-emerald-400 transition">Ẩm thực miệt vườn</a></li>
+                            <li><a href="#" onclick="router.navigate('ai')" class="hover:text-emerald-400 transition">Trợ lý du lịch AI</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-semibold mb-4 text-base">Trải Nghiệm Đặc Sắc</h4>
+                        <ul class="space-y-2.5 text-sm text-slate-400">
+                            <li>Chợ nổi Trà Ôn về đêm</li>
+                            <li>Làng gạch gốm đỏ Mang Thít</li>
+                            <li>Cù lao An Bình trĩu quả</li>
+                            <li>Văn Thánh Miếu Vĩnh Long</li>
+                            <li>Bánh xèo cù lao & Cá tai tượng</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-semibold mb-4 text-base">Bản Tin Du Lịch</h4>
+                        <p class="text-sm text-slate-400 mb-4">Đăng ký nhận thông tin cẩm nang và ưu đãi du lịch mới nhất từ Vĩnh Long.</p>
+                        <form onsubmit="handleNewsletter(event)" class="flex items-center space-y-2 sm:space-y-0 flex-col sm:flex-row gap-2">
+                            <input type="email" required placeholder="Email của bạn..." class="bg-slate-800 border border-slate-700 text-white px-4 py-2.5 rounded-xl text-sm w-full focus:outline-none focus:border-emerald-500">
+                            <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-4 py-2.5 rounded-xl text-sm transition whitespace-nowrap w-full sm:w-auto">Đăng ký</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+                    <p>&copy; 2026 Vĩnh Long Tourism Portal. Tất cả quyền được bảo lưu.</p>
+                    <p class="mt-2 sm:mt-0">Thiết kế cực kỳ sang trọng & hiện đại cho miền sông nước.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Initial Mock Database & State
+        const DEFAULT_SETTINGS = {
+            siteTitle: "Vĩnh Long Tourism",
+            heroTitle: "Khám Phá Vĩnh Long Miền Sông Nước",
+            heroSubtitle: "Hòa mình vào thiên nhiên trù phú, cù lao xanh mát, làng nghề gạch gốm trăm năm và văn hóa miệt vườn độc đáo."
+        };
+
+        const DEFAULT_USERS = [
+            { id: 1, username: 'admin', password: 'admin123', fullName: 'Quản Trị Viên', role: 'Admin', email: 'admin@vinhlong.vn' },
+            { id: 2, username: 'dulichviet', password: '123', fullName: 'Nguyễn Văn Khách', role: 'User', email: 'khach@gmail.com' }
+        ];
+
+        const DEFAULT_ARTICLES = [
+            {
+                id: 1,
+                title: "Làng gạch gốm đỏ Mang Thít - 'Vương quốc đỏ' giữa lòng miền Tây",
+                category: "Điểm đến",
+                summary: "Được ví như vương quốc đỏ độc nhất vô nhị ở miền Tây Nam Bộ, làng gạch gốm Mang Thít lung linh trong khói lam chiều và sắc đỏ gạch nung.",
+                content: `
+                    Đến với Vĩnh Long, không thể không nhắc đến làng gạch gốm Mang Thít – nơi được mệnh danh là 'vương quốc đỏ' kéo dài hàng chục km dọc theo bờ sông kênh rạch. Hàng ngàn lò nung gạch với kiến trúc hình vòm độc đáo xếp lớp như những lâu đài cổ tích giữa lòng đồng bằng sông Cửu Long.<br><br>
+                    Nơi đây không chỉ là trung tâm sản xuất gạch gốm lâu đời mà còn là điểm đến nhiếp ảnh, khám phá văn hóa bản địa vô cùng hấp dẫn đối với du khách trong và ngoài nước. Khi ánh hoàng hôn buông xuống, phản chiếu xuống dòng nước đỏ nặng phù sa, khung cảnh tại đây trở nên vô cùng huyền ảo và nên thơ.<br><br>
+                    Du khách có thể thuê xuồng ba lá len lỏi qua các kênh rạch, ghé thăm các lò gạch đang hoạt động, tìm hiểu quy trình làm gạch thủ công truyền thống được truyền từ đời này sang đời khác của người dân Vĩnh Long.
+                `,
+                image: "https://images.unsplash.com/photo-1596401348429-a1b89be1f629?auto=format&fit=crop&q=80&w=1200",
+                author: "Ban Biên Tập",
+                date: "25/02/2026",
+                views: 1420,
+                likes: 389,
+                tags: ["Mang Thít", "Làng nghề", "Di sản", "Sống ảo"]
+            },
+            {
+                id: 2,
+                title: "Chợ nổi Trà Ôn - Nét sinh hoạt sông nước đậm chất Nam Bộ",
+                category: "Điểm đến",
+                summary: "Nằm cách hạ lưu sông Hậu không xa, chợ nổi Trà Ôn nhộn nhịp từ sáng sớm với hàng trăm ghe xuồng tấp nập giao thương sản vật miệt vườn.",
+                content: `
+                    Chợ nổi Trà Ôn họp trên đoạn sông Hậu cách ngã ba sông khoảng 250m. Đây là khu chợ nổi lịch sử lâu đời gắn liền với nhịp sống mưu sinh của bao thế hệ cư dân miền sông nước Vĩnh Long.<br><br>
+                    Khác với các chợ nổi khác, chợ nổi Trà Ôn họp theo con nước. Từ khi màn đêm chưa tan, hàng trăm chiếc ghe lớn nhỏ đã chở đầy trái cây đặc sản, rau củ, và các món ăn dân dã tụ hội về đây. Tiếng máy nổ ì ạch, tiếng cười nói rôm rả, mùi thơm phức của tô bún bò, hủ tiếu gõ trên ghe tạo nên một bức tranh sinh động khó quên.<br><br>
+                    Hãy thưởng thức ngay một trái dừa sáp béo ngậy hoặc một ly cà phê vợt nóng hổi trên ghe giữa bềnh bồng sóng nước buổi sớm mai.
+                `,
+                image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&q=80&w=1200",
+                author: "Minh Thư",
+                date: "24/02/2026",
+                views: 980,
+                likes: 245,
+                tags: ["Chợ nổi", "Trà Ôn", "Sông nước", "Văn hóa"]
+            },
+            {
+                id: 3,
+                title: "Cù lao An Bình - Thiên đường trái cây bốn mùa xanh mát",
+                category: "Điểm đến",
+                summary: "Được phù sa sông Tiền bồi đắp quanh năm, cù lao An Bình sở hữu những vườn cây ăn trái trĩu quả và những homestay miệt vườn yên bình.",
+                content: `
+                    Cù lao An Bình nằm giữa sông Tiền, thuộc địa phận huyện Long Hồ và thành phố Vĩnh Long. Đến đây, du khách sẽ được chìm đắm trong không gian xanh mát của những vườn chôm chôm, nhãn tiêu da bò, sầu riêng, vú sữa Lò Rèn.<br><br>
+                    Trải nghiệm đạp xe dưới bóng râm rợp mát của rặng cây, tự tay hái và thưởng thức trái cây chín mọng ngay tại vườn, hay thưởng thức đờn ca tài tử Nam Bộ bên ly trà mật ong ấm áp là những hoạt động tuyệt vời không thể bỏ lỡ.<br><br>
+                    Các nhà vườn tại đây cũng phục vụ các món ăn đồng quê cực kỳ hấp dẫn như cá tai tượng chiên xù cuốn bánh tráng, lẩu mắm rau đồng.
+                `,
+                image: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&q=80&w=1200",
+                author: "Hoàng Long",
+                date: "22/02/2026",
+                views: 2150,
+                likes: 512,
+                tags: ["Cù lao", "Miệt vườn", "Trái cây", "Homestay"]
+            },
+            {
+                id: 4,
+                title: "Bánh xèo cù lao & Cá tai tượng chiên xù - Tinh hoa ẩm thực Vĩnh Long",
+                category: "Ẩm thực",
+                summary: "Khám phá hương vị đậm đà, giòn rụm của bánh xèo nhân củ hủ dừa kết hợp cùng cá tai tượng chiên xù giòn tan chấm nước mắm me.",
+                content: `
+                    Ẩm thực Vĩnh Long mang đậm phong vị miệt vườn sông nước, mộc mạc nhưng tinh tế và gây thương nhớ cho bất kỳ thực khách nào đặt chân đến.<br><br>
+                    Đầu tiên phải kể đến món cá tai tượng chiên xù. Con cá tươi roi rói được đánh vảy sạch, chiên ngập dầu đến khi lớp vảy vàng ruộm giòn tan mà thịt bên trong vẫn ngọt mềm. Cuốn cá cùng bún tươi, khế chua, chuối chát, rau sống và chấm nước mắm gỏi tỏi ớt chua ngọt.<br><br>
+                    Bên cạnh đó, bánh xèo củ hủ dừa với lớp vỏ vàng óng giòn rụm, nhân tôm thịt cùng củ hủ dừa ngọt giòn sần sật ăn kèm hàng chục loại rau rừng hái quanh vườn nhà là trải nghiệm vị giác đỉnh cao.
+                `,
+                image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&q=80&w=1200",
+                author: "Đầu bếp Ba Nam",
+                date: "20/02/2026",
+                views: 1830,
+                likes: 420,
+                tags: ["Ẩm thực", "Bánh xèo", "Cá tai tượng", "Đặc sản"]
+            },
+            {
+                id: 5,
+                title: "Văn Thánh Miếu Vĩnh Long - Dấu ấn văn hiến phương Nam",
+                category: "Điểm đến",
+                summary: "Ngôi miếu thờ Khổng Tử cổ kính bậc nhất Nam Bộ, mang giá trị lịch sử và kiến trúc Nho giáo thâm nghiêm bên bờ sông Long Hồ.",
+                content: `
+                    Văn Thánh Miếu Vĩnh Long được xây dựng từ thế kỷ XIX dưới triều nhà Nguyễn, là một trong ba Văn Thánh Miếu đầu tiên ở Nam Kỳ (cùng với Biên Hòa và Gia Định).<br><br>
+                    Công trình gây ấn tượng với kiến trúc cổ kính, uy nghiêm, các cột gỗ quý và những đường nét chạm trổ tinh xảo mang đậm dấu ấn văn hóa Nho học truyền thống. Nơi đây từng là trung tâm giáo dục và rèn luyện nhân tài lớn nhất miền Tây lúc bấy giờ.<br><br>
+                    Khuôn viên ngập bóng cây xanh và hồ sen thanh tịnh mang lại cảm giác bình yên, trầm mặc cho du khách khi tới chiêm bái và tìm hiểu lịch sử.
+                `,
+                image: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&q=80&w=1200",
+                author: "Thanh Trúc",
+                date: "18/02/2026",
+                views: 740,
+                likes: 198,
+                tags: ["Văn Thánh Miếu", "Lịch sử", "Di tích", "Kiến trúc"]
+            },
+            {
+                id: 6,
+                title: "Khoai lang mì luộc nước dừa & Bánh tét củ chuối - Hương vị quê nhà",
+                category: "Ẩm thực",
+                summary: "Món quà vặt dân dã thơm ngon từ làng nghề trồng khoai nổi tiếng Bình Tân kết hợp nước cốt dừa béo ngậy.",
+                content: `
+                    Vĩnh Long không chỉ nổi tiếng với trái cây mà còn là vựa khoai lang lớn nhất miền Tây, đặc biệt là huyện Bình Tân. Khoai lang luộc nước dừa cốt dừa béo ngậy, bùi thơm là món ăn vặt gắn liền với tuổi thơ bao người.<br><br>
+                    Ngoài ra, bánh tét củ chuối với lớp nếp dẻo thơm màu xanh lá dứa hoặc màu tím lá cẩm, nhân đậu xanh thịt mỡ đậm đà hòa quyện vị ngọt tự nhiên của chuối sứ chín mềm là đặc sản không thể thiếu trong các dịp lễ tết ở Vĩnh Long.
+                `,
+                image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=1200",
+                author: "Bếp Nhà Quê",
+                date: "15/02/2026",
+                views: 620,
+                likes: 154,
+                tags: ["Khoai lang", "Đặc sản", "Bánh tét", "Quà quê"]
+            }
+        ];
+
+        // LocalStorage Initialization
+        function initStorage() {
+            if (!localStorage.getItem('vl_settings')) {
+                localStorage.setItem('vl_settings', JSON.stringify(DEFAULT_SETTINGS));
+            }
+            if (!localStorage.getItem('vl_users')) {
+                localStorage.setItem('vl_users', JSON.stringify(DEFAULT_USERS));
+            }
+            if (!localStorage.getItem('vl_articles')) {
+                localStorage.setItem('vl_articles', JSON.stringify(DEFAULT_ARTICLES));
+            }
+            if (!localStorage.getItem('vl_current_user')) {
+                localStorage.setItem('vl_current_user', JSON.stringify(null));
+            }
+        }
+        initStorage();
+
+        // Getters & Setters
+        const db = {
+            getSettings: () => JSON.parse(localStorage.getItem('vl_settings')),
+            saveSettings: (s) => localStorage.setItem('vl_settings', JSON.stringify(s)),
+            getUsers: () => JSON.parse(localStorage.getItem('vl_users')),
+            saveUsers: (u) => localStorage.setItem('vl_users', JSON.stringify(u)),
+            getArticles: () => JSON.parse(localStorage.getItem('vl_articles')),
+            saveArticles: (a) => localStorage.setItem('vl_articles', JSON.stringify(a)),
+            getCurrentUser: () => JSON.parse(localStorage.getItem('vl_current_user')),
+            setCurrentUser: (u) => localStorage.setItem('vl_current_user', JSON.stringify(u))
+        };
+
+        // Router Controller
+        const router = {
+            currentRoute: 'home',
+            param: null,
+            navigate: function(route, param = null) {
+                this.currentRoute = route;
+                this.param = param;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                renderApp();
+            }
+        };
+
+        // Toast Notification System
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const bgClass = type === 'success' ? 'bg-emerald-600' : type === 'error' ? 'bg-rose-600' : 'bg-sky-600';
+            const icon = type === 'success' ? 'fa-circle-check' : type === 'error' ? 'fa-triangle-exclamation' : 'fa-circle-info';
+            
+            toast.className = `pointer-events-auto flex items-center space-x-3 text-white px-5 py-3.5 rounded-2xl shadow-xl ${bgClass} font-medium text-sm animate-in fade-in slide-in-from-bottom-5 duration-300`;
+            toast.innerHTML = `<i class="fa-solid ${icon} text-lg"></i><span>${message}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition', 'duration-300');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Render Navbar Auth & State
+        function updateNavbar() {
+            const user = db.getCurrentUser();
+            const container = document.getElementById('auth-nav-container');
+            const settings = db.getSettings();
+
+            document.getElementById('page-title').innerText = settings.siteTitle;
+            document.querySelectorAll('.footer-brand-title').forEach(el => el.innerText = settings.siteTitle);
+            document.getElementById('brand-title').innerText = settings.siteTitle;
+
+            // Highlight active nav button
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                const route = btn.getAttribute('data-route');
+                if (route === router.currentRoute) {
+                    btn.className = "nav-btn px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-100 text-emerald-800 transition-all shadow-sm";
+                } else {
+                    btn.className = "nav-btn px-4 py-2 rounded-xl text-sm font-medium transition-all hover:bg-emerald-50 hover:text-emerald-700 text-slate-600";
+                }
+            });
+
+            if (!user) {
+                container.innerHTML = `
+                    <button onclick="openAuthModal('login')" class="px-4 py-2 text-sm font-medium text-slate-700 hover:text-emerald-700 transition">Đăng Nhập</button>
+                    <button onclick="openAuthModal('register')" class="px-4.5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-sky-600 text-white text-sm font-semibold shadow-md shadow-emerald-500/20 hover:opacity-95 transition">Đăng Ký</button>
+                `;
+            } else {
+                let adminBadge = user.role === 'Admin' ? `<span class="bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full ml-2 shadow">Admin</span>` : '';
+                let adminDashboardBtn = user.role === 'Admin' ? `
+                    <button onclick="router.navigate('admin')" class="px-3 py-1.5 rounded-xl bg-amber-100 text-amber-800 text-xs font-semibold hover:bg-amber-200 transition flex items-center space-x-1">
+                        <i class="fa-solid fa-gauge"></i> <span>Quản Trị</span>
+                    </button>
+                ` : '';
+
+                container.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="flex items-center space-x-2 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200">
+                            <div class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">
+                                ${user.fullName.charAt(0).toUpperCase()}
+                            </div>
+                            <span class="text-xs font-semibold text-slate-700">${user.fullName}</span>
+                            ${adminBadge}
+                        </div>
+                        ${adminDashboardBtn}
+                        <button onclick="logout()" title="Đăng xuất" class="p-2 text-slate-400 hover:text-rose-600 rounded-xl hover:bg-slate-100 transition">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Auth Modal Handlers
+        function openAuthModal(mode = 'login') {
+            const modal = document.getElementById('auth-modal');
+            const content = document.getElementById('auth-modal-content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            if (mode === 'login') {
+                content.innerHTML = `
+                    <div class="text-center mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Đăng Nhập Tài Khoản</h3>
+                        <p class="text-xs text-slate-500 mt-1">Chào mừng bạn quay trở lại cổng du lịch Vĩnh Long</p>
+                    </div>
+                    <form onsubmit="handleLogin(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Tên đăng nhập</label>
+                            <input type="text" id="login-username" required placeholder="Nhập tên đăng nhập..." class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Mật khẩu</label>
+                            <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                        </div>
+                        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-xl text-sm shadow-lg shadow-emerald-500/20 transition">Đăng Nhập</button>
+                    </form>
+                    <p class="text-center text-xs text-slate-500 mt-6">
+                        Chưa có tài khoản? <button onclick="openAuthModal('register')" class="text-emerald-600 font-semibold hover:underline">Đăng ký ngay</button>
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-[11px] text-slate-400 text-center">
+                        Tài khoản Admin mẫu: <span class="font-semibold text-slate-600">admin</span> / <span class="font-semibold text-slate-600">admin123</span>
+                    </div>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div class="text-center mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center mx-auto mb-3 text-xl">
+                            <i class="fa-solid fa-user-plus"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Đăng Ký Thành Viên</h3>
+                        <p class="text-xs text-slate-500 mt-1">Trở thành thành viên cộng đồng du lịch Vĩnh Long</p>
+                    </div>
+                    <form onsubmit="handleRegister(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Họ và tên</label>
+                            <input type="text" id="reg-fullname" required placeholder="Nguyễn Văn A..." class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Tên đăng nhập</label>
+                            <input type="text" id="reg-username" required placeholder="tendangnhap..." class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Mật khẩu</label>
+                            <input type="password" id="reg-password" required placeholder="••••••••" class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Mã bảo mật đặc biệt (Tùy chọn)</label>
+                            <input type="password" id="reg-secret" placeholder="Mã đặc quyền hệ thống..." class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-sky-600 hover:opacity-95 text-white font-semibold py-3 rounded-xl text-sm shadow-lg shadow-emerald-500/20 transition">Đăng Ký Tài Khoản</button>
+                    </form>
+                    <p class="text-center text-xs text-slate-500 mt-6">
+                        Đã có tài khoản? <button onclick="openAuthModal('login')" class="text-emerald-600 font-semibold hover:underline">Đăng nhập</button>
+                    </p>
+                `;
+            }
+        }
+
+        function closeAuthModal() {
+            const modal = document.getElementById('auth-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+            const users = db.getUsers();
+
+            const user = users.find(u => u.username === username && u.password === password);
+            if (user) {
+                db.setCurrentUser(user);
+                closeAuthModal();
+                updateNavbar();
+                showToast(`Xin chào, ${user.fullName}! Đăng nhập thành công.`, 'success');
+                if (router.currentRoute === 'admin' && user.role !== 'Admin') {
+                    router.navigate('home');
+                } else {
+                    renderApp();
+                }
+            } else {
+                showToast('Tên đăng nhập hoặc mật khẩu không chính xác!', 'error');
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const fullName = document.getElementById('reg-fullname').value.trim();
+            const username = document.getElementById('reg-username').value.trim();
+            const password = document.getElementById('reg-password').value.trim();
+            const secretCode = document.getElementById('reg-secret').value.trim();
+            const users = db.getUsers();
+
+            if (users.some(u => u.username === username)) {
+                showToast('Tên đăng nhập này đã tồn tại, vui lòng chọn tên khác!', 'error');
+                return;
+            }
+
+            // Secret code check for Admin role ('conechop')
+            let role = 'User';
+            if (secretCode === 'conechop') {
+                role = 'Admin';
+            }
+
+            const newUser = {
+                id: Date.now(),
+                username,
+                password,
+                fullName,
+                role,
+                email: `${username}@vinhlong.vn`
+            };
+
+            users.push(newUser);
+            db.saveUsers(users);
+            db.setCurrentUser(newUser);
+            closeAuthModal();
+            updateNavbar();
+            renderApp();
+            
+            if (role === 'Admin') {
+                showToast(`Đăng ký thành công! Bạn đã được cấp quyền Quản Trị Viên (Admin).`, 'success');
+            } else {
+                showToast(`Đăng ký tài khoản thành công! Chào mừng bạn.`, 'success');
+            }
+        }
+
+        function logout() {
+            db.setCurrentUser(null);
+            updateNavbar();
+            showToast('Đã đăng xuất tài khoản.', 'info');
+            if (router.currentRoute === 'admin') {
+                router.navigate('home');
+            } else {
+                renderApp();
+            }
+        }
+
+        function handleNewsletter(e) {
+            e.preventDefault();
+            showToast('Đăng ký bản tin du lịch thành công! Cảm ơn bạn.', 'success');
+            e.target.reset();
+        }
+
+        // ==================== VIEWS RENDERING ====================
+
+        function renderApp() {
+            updateNavbar();
+            const container = document.getElementById('main-content');
+            const settings = db.getSettings();
+
+            if (router.currentRoute === 'home') {
+                const articles = db.getArticles();
+                const featured = articles.slice(0, 3);
+                const rest = articles.slice(3);
+
+                container.innerHTML = `
+                    <!-- Hero Section -->
+                    <section class="hero-bg py-24 md:py-32 text-white relative">
+                        <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px]"></div>
+                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                            <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-md mb-6 border border-white/30 text-emerald-100">
+                                <i class="fa-solid fa-location-dot mr-2 text-amber-400"></i> Miền Tây Sông Nước Vĩnh Long
+                            </span>
+                            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 max-w-4xl mx-auto leading-tight">
+                                ${settings.heroTitle}
+                            </h1>
+                            <p class="text-lg sm:text-xl text-emerald-100 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                                ${settings.heroSubtitle}
+                            </p>
+                            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                                <button onclick="router.navigate('destinations')" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-semibold shadow-xl shadow-emerald-900/30 transition transform hover:-translate-y-0.5 flex items-center justify-center space-x-2">
+                                    <i class="fa-solid fa-compass"></i> <span>Khám Phá Điểm Đến</span>
+                                </button>
+                                <button onclick="router.navigate('ai')" class="w-full sm:w-auto px-8 py-4 rounded-2xl glass-card text-slate-900 font-semibold hover:bg-white/90 transition transform hover:-translate-y-0.5 flex items-center justify-center space-x-2 border border-white/50">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-amber-500"></i> <span>Hỏi Trợ Lý AI Du Lịch</span>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Quick Highlights Banner -->
+                    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 mb-16">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="glass-card p-6 rounded-3xl shadow-xl flex items-center space-x-4 border border-white/80">
+                                <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl flex-shrink-0">
+                                    <i class="fa-solid fa-tree-city"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-base">Cù Lao Xanh Mát</h4>
+                                    <p class="text-xs text-slate-500 mt-0.5">Trái cây bốn mùa trĩu quả, không gian miệt vườn yên bình.</p>
+                                </div>
+                            </div>
+                            <div class="glass-card p-6 rounded-3xl shadow-xl flex items-center space-x-4 border border-white/80">
+                                <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center text-2xl flex-shrink-0">
+                                    <i class="fa-solid fa-fire"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-base">Làng Gạch Mang Thít</h4>
+                                    <p class="text-xs text-slate-500 mt-0.5">Vương quốc đỏ độc đáo bậc nhất đồng bằng sông Cửu Long.</p>
+                                </div>
+                            </div>
+                            <div class="glass-card p-6 rounded-3xl shadow-xl flex items-center space-x-4 border border-white/80">
+                                <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl flex-shrink-0">
+                                    <i class="fa-solid fa-bowl-food"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 text-base">Ẩm Thực Đậm Đà</h4>
+                                    <p class="text-xs text-slate-500 mt-0.5">Cá tai tượng chiên xù, bánh xèo củ hủ dừa thơm lừng.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Featured Magazine Articles -->
+                    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
+                        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                            <div>
+                                <span class="text-emerald-700 font-bold text-xs uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Tạp Chí Du Lịch</span>
+                                <h2 class="text-3xl font-extrabold text-slate-900 mt-2">Bài Viết & Điểm Đến Nổi Bật</h2>
+                            </div>
+                            <div class="mt-4 md:mt-0 flex items-center space-x-3">
+                                <button onclick="router.navigate('destinations')" class="text-sm font-semibold text-emerald-700 hover:text-emerald-800 flex items-center space-x-1">
+                                    <span>Xem tất cả điểm đến</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Grid of articles (Each goes to a dedicated detailed page!) -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            ${articles.map(art => `
+                                <div onclick="router.navigate('article', ${art.id})" class="group glass-card rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between cursor-pointer border border-slate-200/60 transform hover:-translate-y-1">
+                                    <div>
+                                        <div class="relative overflow-hidden h-60">
+                                            <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                            <div class="absolute top-4 left-4 bg-emerald-600/90 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
+                                                ${art.category}
+                                            </div>
+                                        </div>
+                                        <div class="p-6">
+                                            <div class="flex items-center space-x-4 text-xs text-slate-500 mb-3">
+                                                <span><i class="fa-regular fa-calendar mr-1"></i> ${art.date}</span>
+                                                <span><i class="fa-regular fa-eye mr-1"></i> ${art.views} lượt xem</span>
+                                            </div>
+                                            <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition line-clamp-2 mb-3 leading-snug">
+                                                ${art.title}
+                                            </h3>
+                                            <p class="text-sm text-slate-600 line-clamp-3 leading-relaxed">
+                                                ${art.summary}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="px-6 pb-6 pt-0 flex items-center justify-between border-t border-slate-100 mt-4">
+                                        <span class="text-xs font-medium text-slate-500">Tác giả: ${art.author}</span>
+                                        <span class="text-xs font-bold text-emerald-700 group-hover:translate-x-1 transition flex items-center space-x-1">
+                                            <span>Đọc chi tiết</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>
+
+                    <!-- AI Assistant Banner CTA -->
+                    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
+                        <div class="bg-gradient-to-r from-emerald-800 via-emerald-700 to-sky-800 rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl">
+                            <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+                            <div class="relative z-10 max-w-2xl">
+                                <span class="bg-amber-500/90 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block shadow">Trợ Lý Ảo Thông Minh</span>
+                                <h3 class="text-3xl sm:text-4xl font-extrabold mb-4 leading-tight">Bạn đang lên kế hoạch khám phá Vĩnh Long?</h3>
+                                <p class="text-emerald-100 text-sm sm:text-base mb-8 leading-relaxed">
+                                    Hãy hỏi Trợ lý Du lịch AI Vĩnh Long ngay lập tức để nhận gợi ý lịch trình 2 ngày 1 đêm, danh sách quán ăn đặc sản ngon nhất và những điểm check-in sống ảo cực đẹp.
+                                </p>
+                                <button onclick="router.navigate('ai')" class="px-8 py-4 rounded-2xl bg-white text-emerald-900 font-bold shadow-xl hover:bg-emerald-50 transition flex items-center space-x-2">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-amber-500"></i>
+                                    <span>Trò Chuyện Với Trợ Lý AI Ngay</span>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            } else if (router.currentRoute === 'destinations' || router.currentRoute === 'cuisines') {
+                const articles = db.getArticles();
+                const filterCat = router.currentRoute === 'destinations' ? 'Điểm đến' : 'Ẩm thực';
+                const filtered = articles.filter(a => a.category === filterCat);
+                const titleText = filterCat === 'Điểm đến' ? 'Khám Phá Điểm Đến Vĩnh Long' : 'Tinh Hoa Ẩm Thực Vĩnh Long';
+                const subtitleText = filterCat === 'Điểm đến' ? 'Những danh thắng, cù lao xanh mát và làng nghề truyền thống đặc sắc.' : 'Hương vị miệt vườn mộc mạc, đậm đà tình đất tình người miền Tây.';
+
+                container.innerHTML = `
+                    <div class="bg-gradient-to-b from-emerald-900 to-slate-900 text-white py-16 px-4 text-center mb-12">
+                        <div class="max-w-3xl mx-auto">
+                            <h1 class="text-3xl sm:text-5xl font-extrabold mb-4">${titleText}</h1>
+                            <p class="text-emerald-100 text-base sm:text-lg font-light">${subtitleText}</p>
+                            <div class="mt-8 flex justify-center space-x-3">
+                                <button onclick="router.navigate('destinations')" class="px-5 py-2.5 rounded-xl text-sm font-semibold transition ${router.currentRoute === 'destinations' ? 'bg-emerald-600 text-white shadow-lg' : 'bg-white/10 text-slate-300 hover:bg-white/20'}">Điểm Đến</button>
+                                <button onclick="router.navigate('cuisines')" class="px-5 py-2.5 rounded-xl text-sm font-semibold transition ${router.currentRoute === 'cuisines' ? 'bg-emerald-600 text-white shadow-lg' : 'bg-white/10 text-slate-300 hover:bg-white/20'}">Ẩm Thực</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            ${filtered.map(art => `
+                                <div onclick="router.navigate('article', ${art.id})" class="group glass-card rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between cursor-pointer border border-slate-200/60 transform hover:-translate-y-1">
+                                    <div>
+                                        <div class="relative overflow-hidden h-60">
+                                            <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                            <div class="absolute top-4 left-4 bg-emerald-600/90 backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
+                                                ${art.category}
+                                            </div>
+                                        </div>
+                                        <div class="p-6">
+                                            <div class="flex items-center space-x-4 text-xs text-slate-500 mb-3">
+                                                <span><i class="fa-regular fa-calendar mr-1"></i> ${art.date}</span>
+                                                <span><i class="fa-regular fa-eye mr-1"></i> ${art.views} lượt xem</span>
+                                            </div>
+                                            <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition line-clamp-2 mb-3 leading-snug">
+                                                ${art.title}
+                                            </h3>
+                                            <p class="text-sm text-slate-600 line-clamp-3 leading-relaxed">
+                                                ${art.summary}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="px-6 pb-6 pt-0 flex items-center justify-between border-t border-slate-100 mt-4">
+                                        <span class="text-xs font-medium text-slate-500">Tác giả: ${art.author}</span>
+                                        <span class="text-xs font-bold text-emerald-700 group-hover:translate-x-1 transition flex items-center space-x-1">
+                                            <span>Đọc chi tiết</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            } else if (router.currentRoute === 'article') {
+                const articleId = router.param;
+                const articles = db.getArticles();
+                const article = articles.find(a => a.id === articleId) || articles[0];
+
+                // Increment views
+                article.views += 1;
+                db.saveArticles(articles);
+
+                container.innerHTML = `
+                    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                        <!-- Breadcrumb & Back -->
+                        <div class="mb-8 flex items-center justify-between">
+                            <button onclick="router.navigate('home')" class="inline-flex items-center space-x-2 text-sm font-semibold text-emerald-700 hover:text-emerald-800 bg-emerald-50 px-4 py-2 rounded-xl transition border border-emerald-200">
+                                <i class="fa-solid fa-arrow-left"></i> <span>Quay lại trang chủ</span>
+                            </button>
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3.5 py-1.5 rounded-full shadow-sm">
+                                ${article.category}
+                            </span>
+                        </div>
+
+                        <!-- Magazine Article Header -->
+                        <div class="mb-8">
+                            <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+                                ${article.title}
+                            </h1>
+                            <div class="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-slate-200 text-xs sm:text-sm text-slate-500">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold">
+                                        ${article.author.charAt(0)}
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">Tác giả: ${article.author}</p>
+                                        <p class="text-xs text-slate-400">Đăng ngày ${article.date}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <span><i class="fa-regular fa-eye mr-1"></i> ${article.views} lượt xem</span>
+                                    <span><i class="fa-regular fa-heart mr-1 text-rose-500"></i> <span id="like-count">${article.likes}</span> thích</span>
+                                    <button onclick="likeArticle(${article.id})" class="px-3 py-1.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 font-semibold transition flex items-center space-x-1">
+                                        <i class="fa-solid fa-heart"></i> <span>Thích</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Featured Banner Image -->
+                        <div class="mb-10 rounded-3xl overflow-hidden shadow-2xl h-[350px] sm:h-[500px]">
+                            <img src="${article.image}" alt="${article.title}" class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- Magazine Body Content with Drop Cap -->
+                        <article class="prose prose-lg max-w-none text-slate-700 leading-relaxed space-y-6 text-base sm:text-lg">
+                            <p class="drop-cap font-medium text-slate-800">
+                                ${article.summary}
+                            </p>
+                            <div class="space-y-4 pt-4 border-t border-slate-100">
+                                ${article.content}
+                            </div>
+                        </article>
+
+                        <!-- Tags -->
+                        <div class="mt-10 pt-6 border-t border-slate-200 flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-bold text-slate-500 mr-2"><i class="fa-solid fa-tags mr-1"></i> Từ khóa:</span>
+                            ${article.tags.map(tag => `<span class="bg-slate-100 hover:bg-emerald-100 hover:text-emerald-800 transition cursor-pointer text-slate-700 text-xs font-medium px-3 py-1.5 rounded-xl">#${tag}</span>`).join('')}
+                        </div>
+
+                        <!-- Author Card Box -->
+                        <div class="mt-12 p-8 rounded-3xl glass-card border border-slate-200/80 shadow-xl flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                            <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-emerald-600 to-sky-600 text-white flex items-center justify-center font-bold text-3xl shadow-lg">
+                                ${article.author.charAt(0)}
+                            </div>
+                            <div class="text-center sm:text-left">
+                                <h4 class="font-bold text-slate-900 text-lg">Được viết bởi ${article.author}</h4>
+                                <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                    Biên tập viên chuyên mục Du lịch Vĩnh Long. Đam mê khám phá văn hóa sông nước miền Tây và chia sẻ những trải nghiệm chân thực nhất đến du khách gần xa.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Comments Section -->
+                        <div class="mt-16">
+                            <h3 class="text-2xl font-bold text-slate-900 mb-6 flex items-center space-x-2">
+                                <i class="fa-solid fa-comments text-emerald-600"></i> <span>Bình Luận & Cảm Nhận</span>
+                            </h3>
+                            <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200 mb-8">
+                                <form onsubmit="handleComment(event)" class="space-y-4">
+                                    <textarea required rows="3" placeholder="Chia sẻ cảm nghĩ hoặc trải nghiệm của bạn về địa điểm này..." class="w-full bg-slate-100 border border-slate-200 p-4 rounded-2xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition"></textarea>
+                                    <div class="flex justify-end">
+                                        <button type="submit" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-md transition">Gửi Bình Luận</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="glass-card p-5 rounded-2xl border border-slate-200/60">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-bold text-sm text-slate-800">Trần Quốc Bảo</span>
+                                        <span class="text-xs text-slate-400">2 giờ trước</span>
+                                    </div>
+                                    <p class="text-sm text-slate-600">Bài viết rất chi tiết và hình ảnh đẹp quá! Mình vừa làm chuyến du lịch Vĩnh Long tuần trước và thực sự ấn tượng với con người nơi đây.</p>
+                                </div>
+                                <div class="glass-card p-5 rounded-2xl border border-slate-200/60">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-bold text-sm text-slate-800">Lê Thanh Mai</span>
+                                        <span class="text-xs text-slate-400">Hôm qua</span>
+                                    </div>
+                                    <p class="text-sm text-slate-600">Cảm ơn tác giả đã chia sẻ. Chắc chắn cuối tuần này mình sẽ ghé cù lao An Bình hái trái cây.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (router.currentRoute === 'ai') {
+                container.innerHTML = `
+                    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                        <div class="text-center mb-8">
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3.5 py-1.5 rounded-full shadow-sm">Trợ Lý Ảo Thông Minh Vĩnh Long</span>
+                            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Hỏi Đáp Du Lịch Cùng AI</h1>
+                            <p class="text-slate-500 text-sm mt-1">Cần tư vấn lịch trình, quán ăn ngon, homestay hay đặc sản? Trợ lý AI sẵn sàng hỗ trợ 24/7.</p>
+                        </div>
+
+                        <!-- Chatbox Container -->
+                        <div class="glass-card rounded-3xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[600px]">
+                            <!-- Chat Header -->
+                            <div class="bg-gradient-to-r from-emerald-700 to-sky-700 p-4 text-white flex items-center space-x-3 shadow">
+                                <div class="w-10 h-10 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center font-bold text-lg">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-sm">Vĩnh Long Tourism AI Assistant</h4>
+                                    <p class="text-[11px] text-emerald-100 flex items-center space-x-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
+                                        <span>Đang trực tuyến • Chuyên gia du lịch miền Tây</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Chat Messages Area -->
+                            <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 bg-slate-50/50">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-8 h-8 rounded-full bg-emerald-700 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow">AI</div>
+                                    <div class="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm border border-slate-100 max-w-lg text-sm text-slate-700 leading-relaxed">
+                                        Dạ chào bạn! Tôi là trợ lý ảo du lịch Vĩnh Long. Tôi có thể giúp gì cho chuyến khám phá miền sông nước của bạn hôm nay? Bạn muốn tìm hiểu về điểm đến, ẩm thực hay lịch trình chi tiết?
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Suggested Quick Prompts -->
+                            <div class="px-6 py-2 bg-slate-100/80 border-t border-slate-200 flex items-center space-x-2 overflow-x-auto text-xs">
+                                <span class="text-slate-400 whitespace-nowrap"><i class="fa-solid fa-lightbulb mr-1"></i> Gợi ý:</span>
+                                <button onclick="sendQuickPrompt('Gợi ý lịch trình du lịch Vĩnh Long 2 ngày 1 đêm')" class="bg-white hover:bg-emerald-50 hover:text-emerald-700 text-slate-700 px-3 py-1.5 rounded-xl border border-slate-200 whitespace-nowrap shadow-sm transition">Lịch trình 2N1Đ</button>
+                                <button onclick="sendQuickPrompt('Đặc sản Vĩnh Long có những món gì ngon?')" class="bg-white hover:bg-emerald-50 hover:text-emerald-700 text-slate-700 px-3 py-1.5 rounded-xl border border-slate-200 whitespace-nowrap shadow-sm transition">Đặc sản món ngon</button>
+                                <button onclick="sendQuickPrompt('Làng gạch Mang Thít ở đâu và có gì đẹp?')" class="bg-white hover:bg-emerald-50 hover:text-emerald-700 text-slate-700 px-3 py-1.5 rounded-xl border border-slate-200 whitespace-nowrap shadow-sm transition">Làng gạch Mang Thít</button>
+                            </div>
+
+                            <!-- Chat Input Box -->
+                            <div class="p-4 bg-white border-t border-slate-200">
+                                <form onsubmit="handleAIChat(event)" class="flex items-center space-x-3">
+                                    <input type="text" id="ai-input" required placeholder="Nhập câu hỏi của bạn về Vĩnh Long..." class="flex-grow bg-slate-100 border border-slate-200 px-4 py-3 rounded-2xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/20 transition flex-shrink-0">
+                                        <i class="fa-solid fa-paper-plane"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (router.currentRoute === 'admin') {
+                const user = db.getCurrentUser();
+                if (!user || user.role !== 'Admin') {
+                    router.navigate('home');
+                    showToast('Bạn không có quyền truy cập trang Quản Trị!', 'error');
+                    return;
+                }
+
+                container.innerHTML = `
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-6 border-b border-slate-200 gap-4">
+                            <div>
+                                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">Bảng Điều Khiển Quản Trị (Admin Dashboard)</span>
+                                <h1 class="text-3xl font-extrabold text-slate-900 mt-2">Quản Trị Hệ Thống Vĩnh Long Portal</h1>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <button onclick="switchAdminTab('stats')" id="tab-btn-stats" class="admin-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold bg-emerald-600 text-white shadow">Tổng Quan</button>
+                                <button onclick="switchAdminTab('users')" id="tab-btn-users" class="admin-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold bg-slate-200 text-slate-700 hover:bg-slate-300">Thành Viên</button>
+                                <button onclick="switchAdminTab('articles')" id="tab-btn-articles" class="admin-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold bg-slate-200 text-slate-700 hover:bg-slate-300">Bài Viết</button>
+                                <button onclick="switchAdminTab('settings')" id="tab-btn-settings" class="admin-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold bg-slate-200 text-slate-700 hover:bg-slate-300">Giao Diện</button>
+                            </div>
+                        </div>
+
+                        <!-- Admin Panel Dynamic Content Container -->
+                        <div id="admin-panel-content">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                `;
+                renderAdminTab('stats');
+            }
+        }
+
+        // ==================== ADMIN DASHBOARD LOGIC ====================
+
+        let currentAdminTab = 'stats';
+
+        function switchAdminTab(tab) {
+            currentAdminTab = tab;
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.className = "admin-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold bg-slate-200 text-slate-700 hover:bg-slate-300";
+            });
+            document.getElementById(`tab-btn-${tab}`).className = "admin-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold bg-emerald-600 text-white shadow";
+            renderAdminTab(tab);
+        }
+
+        function renderAdminTab(tab) {
+            const container = document.getElementById('admin-panel-content');
+            const users = db.getUsers();
+            const articles = db.getArticles();
+            const settings = db.getSettings();
+
+            if (tab === 'stats') {
+                container.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                        <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs font-bold text-slate-400 uppercase">Tổng Thành Viên</span>
+                                <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center"><i class="fa-solid fa-users"></i></div>
+                            </div>
+                            <h3 class="text-3xl font-extrabold text-slate-900">${users.length}</h3>
+                            <p class="text-xs text-emerald-600 mt-1 font-medium"><i class="fa-solid fa-arrow-up mr-1"></i> Hoạt động ổn định</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs font-bold text-slate-400 uppercase">Tổng Bài Viết</span>
+                                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center"><i class="fa-solid fa-newspaper"></i></div>
+                            </div>
+                            <h3 class="text-3xl font-extrabold text-slate-900">${articles.length}</h3>
+                            <p class="text-xs text-emerald-600 mt-1 font-medium"><i class="fa-solid fa-check mr-1"></i> Đã xuất bản trang chi tiết</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs font-bold text-slate-400 uppercase">Tổng Lượt Xem</span>
+                                <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center"><i class="fa-solid fa-eye"></i></div>
+                            </div>
+                            <h3 class="text-3xl font-extrabold text-slate-900">${articles.reduce((acc, curr) => acc + curr.views, 0)}</h3>
+                            <p class="text-xs text-emerald-600 mt-1 font-medium"><i class="fa-solid fa-chart-line mr-1"></i> Tăng trưởng tốt</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-xs font-bold text-slate-400 uppercase">Tổng Lượt Thích</span>
+                                <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center"><i class="fa-solid fa-heart"></i></div>
+                            </div>
+                            <h3 class="text-3xl font-extrabold text-slate-900">${articles.reduce((acc, curr) => acc + curr.likes, 0)}</h3>
+                            <p class="text-xs text-emerald-600 mt-1 font-medium"><i class="fa-solid fa-face-smile mr-1"></i> Phản hồi tích cực</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
+                            <h3 class="font-bold text-slate-900 text-lg mb-4 flex items-center space-x-2">
+                                <i class="fa-solid fa-shield-halved text-emerald-600"></i> <span>Thông tin cấu hình bảo mật</span>
+                            </h3>
+                            <ul class="space-y-3 text-sm text-slate-600">
+                                <li class="flex justify-between py-2 border-b border-slate-100">
+                                    <span class="font-medium">Mã ẩn đăng ký Admin:</span>
+                                    <span class="font-mono bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-bold">conechop</span>
+                                </li>
+                                <li class="flex justify-between py-2 border-b border-slate-100">
+                                    <span class="font-medium">Tiêu đề website hiện tại:</span>
+                                    <span class="font-semibold text-slate-800">${settings.siteTitle}</span>
+                                </li>
+                                <li class="flex justify-between py-2">
+                                    <span class="font-medium">Trạng thái hệ thống:</span>
+                                    <span class="text-emerald-600 font-bold"><i class="fa-solid fa-circle-check mr-1"></i> Hoạt động bình thường</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="glass-card p-6 rounded-3xl shadow-lg border border-slate-200">
+                            <h3 class="font-bold text-slate-900 text-lg mb-4 flex items-center space-x-2">
+                                <i class="fa-solid fa-bolt text-amber-500"></i> <span>Thao Tác Nhanh Quản Trị</span>
+                            </h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <button onclick="switchAdminTab('articles')" class="p-4 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-sm font-semibold transition text-left flex flex-col justify-between h-28">
+                                    <i class="fa-solid fa-plus-circle text-2xl text-emerald-600"></i>
+                                    <span>Tạo bài viết mới</span>
+                                </button>
+                                <button onclick="switchAdminTab('users')" class="p-4 rounded-2xl bg-sky-50 hover:bg-sky-100 text-sky-800 text-sm font-semibold transition text-left flex flex-col justify-between h-28">
+                                    <i class="fa-solid fa-user-gear text-2xl text-sky-600"></i>
+                                    <span>Quản lý thành viên</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'users') {
+                container.innerHTML = `
+                    <div class="glass-card rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+                        <div class="p-6 border-b border-slate-200 flex items-center justify-between">
+                            <h3 class="font-bold text-lg text-slate-900">Danh Sách Thành Viên & Phân Quyền</h3>
+                            <span class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-full font-medium">Tổng số: ${users.length} tài khoản</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-100/70 text-slate-600 text-xs uppercase font-bold tracking-wider">
+                                        <th class="p-4">Họ và tên</th>
+                                        <th class="p-4">Tên đăng nhập</th>
+                                        <th class="p-4">Email</th>
+                                        <th class="p-4">Vai trò</th>
+                                        <th class="p-4 text-right">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200 text-sm">
+                                    ${users.map(u => `
+                                        <tr class="hover:bg-slate-50/80 transition">
+                                            <td class="p-4 font-semibold text-slate-900">${u.fullName}</td>
+                                            <td class="p-4 text-slate-600 font-mono text-xs">${u.username}</td>
+                                            <td class="p-4 text-slate-600">${u.email}</td>
+                                            <td class="p-4">
+                                                <span class="px-3 py-1 rounded-full text-xs font-bold ${u.role === 'Admin' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-700'}">
+                                                    ${u.role}
+                                                </span>
+                                            </td>
+                                            <td class="p-4 text-right space-x-2">
+                                                <button onclick="toggleUserRole(${u.id})" class="px-3 py-1.5 rounded-xl bg-sky-50 text-sky-700 hover:bg-sky-100 text-xs font-semibold transition" title="Đổi quyền Admin/User">Đổi Quyền</button>
+                                                ${u.username !== 'admin' ? `<button onclick="deleteUser(${u.id})" class="px-3 py-1.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 text-xs font-semibold transition" title="Xóa thành viên">Xóa</button>` : ''}
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'articles') {
+                container.innerHTML = `
+                    <div class="space-y-8">
+                        <!-- Add New Article Card -->
+                        <div class="glass-card p-6 sm:p-8 rounded-3xl shadow-xl border border-slate-200">
+                            <h3 class="font-bold text-xl text-slate-900 mb-6 flex items-center space-x-2">
+                                <i class="fa-solid fa-pen-nib text-emerald-600"></i> <span>Tạo Bài Viết / Điểm Đến Mới</span>
+                            </h3>
+                            <form onsubmit="handleCreateArticle(event)" class="space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Tiêu đề bài viết</label>
+                                        <input type="text" id="new-art-title" required placeholder="Nhập tiêu đề..." class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Chuyên mục</label>
+                                        <select id="new-art-cat" class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                                            <option value="Điểm đến">Điểm đến</option>
+                                            <option value="Ẩm thực">Ẩm thực</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Link Ảnh minh họa (URL)</label>
+                                    <input type="url" id="new-art-image" required placeholder="https://images.unsplash.com/..." class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Tóm tắt ngắn</label>
+                                    <textarea id="new-art-summary" required rows="2" placeholder="Mô tả ngắn gọn..." class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Nội dung chi tiết bài báo (định dạng HTML cơ bản)</label>
+                                    <textarea id="new-art-content" required rows="5" placeholder="Nội dung bài viết chi tiết..." class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition"></textarea>
+                                </div>
+                                <div class="flex justify-end">
+                                    <button type="submit" class="px-8 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-lg transition">Đăng Bài Viết Mới</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Existing Articles List -->
+                        <div class="glass-card rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+                            <div class="p-6 border-b border-slate-200 flex items-center justify-between">
+                                <h3 class="font-bold text-lg text-slate-900">Quản Lý Bài Viết Hiện Có</h3>
+                                <span class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-full font-medium">Tổng số: ${articles.length} bài viết</span>
+                            </div>
+                            <div class="divide-y divide-slate-200">
+                                ${articles.map(a => `
+                                    <div class="p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:bg-slate-50/80 transition">
+                                        <div class="flex items-center space-x-4">
+                                            <img src="${a.image}" alt="${a.title}" class="w-20 h-16 rounded-xl object-cover shadow">
+                                            <div>
+                                                <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">${a.category}</span>
+                                                <h4 class="font-bold text-slate-900 text-base mt-1 line-clamp-1">${a.title}</h4>
+                                                <p class="text-xs text-slate-400 mt-0.5">Tác giả: ${a.author} • Ngày: ${a.date} • ${a.views} lượt xem</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-2 self-end md:self-auto">
+                                            <button onclick="router.navigate('article', ${a.id})" class="px-3.5 py-2 rounded-xl bg-sky-50 text-sky-700 hover:bg-sky-100 text-xs font-semibold transition flex items-center space-x-1">
+                                                <i class="fa-solid fa-eye"></i> <span>Xem</span>
+                                            </button>
+                                            <button onclick="deleteArticle(${a.id})" class="px-3.5 py-2 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 text-xs font-semibold transition flex items-center space-x-1">
+                                                <i class="fa-solid fa-trash"></i> <span>Xóa</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'settings') {
+                container.innerHTML = `
+                    <div class="glass-card p-6 sm:p-8 rounded-3xl shadow-xl border border-slate-200 max-w-2xl mx-auto">
+                        <h3 class="font-bold text-xl text-slate-900 mb-6 flex items-center space-x-2">
+                            <i class="fa-solid fa-sliders text-emerald-600"></i> <span>Tùy Chỉnh Giao Diện & Tiêu Đề Website</span>
+                        </h3>
+                        <form onsubmit="handleSaveSettings(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Tiêu đề website (Brand Title)</label>
+                                <input type="text" id="setting-title" required value="${settings.siteTitle}" class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Tiêu đề chính Hero Banner</label>
+                                <input type="text" id="setting-herotitle" required value="${settings.heroTitle}" class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Mô tả phụ Hero Banner</label>
+                                <textarea id="setting-herosub" required rows="3" class="w-full bg-slate-100 border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-emerald-500 focus:bg-white transition">${settings.heroSubtitle}</textarea>
+                            </div>
+                            <div class="flex justify-end pt-4">
+                                <button type="submit" class="px-8 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-lg transition">Lưu Thay Đổi Giao Diện</button>
+                            </div>
+                        </form>
+                    </div>
+                `;
+            }
+        }
+
+        function toggleUserRole(userId) {
+            const users = db.getUsers();
+            const user = users.find(u => u.id === userId);
+            if (user) {
+                if (user.username === 'admin') {
+                    showToast('Không thể thay đổi quyền của tài khoản Admin gốc!', 'error');
+                    return;
+                }
+                user.role = user.role === 'Admin' ? 'User' : 'Admin';
+                db.saveUsers(users);
+                renderAdminTab('users');
+                showToast(`Đã cập nhật quyền thành viên ${user.username} thành ${user.role}.`, 'success');
+            }
+        }
+
+        function deleteUser(userId) {
+            let users = db.getUsers();
+            const user = users.find(u => u.id === userId);
+            if (user && user.username === 'admin') {
+                showToast('Không thể xóa tài khoản Admin gốc!', 'error');
+                return;
+            }
+            users = users.filter(u => u.id !== userId);
+            db.saveUsers(users);
+            renderAdminTab('users');
+            showToast('Đã xóa thành viên khỏi hệ thống.', 'success');
+        }
+
+        function handleCreateArticle(e) {
+            e.preventDefault();
+            const title = document.getElementById('new-art-title').value.trim();
+            const category = document.getElementById('new-art-cat').value;
+            const image = document.getElementById('new-art-image').value.trim();
+            const summary = document.getElementById('new-art-summary').value.trim();
+            const content = document.getElementById('new-art-content').value.trim();
+            const currentUser = db.getCurrentUser();
+
+            const articles = db.getArticles();
+            const newArticle = {
+                id: Date.now(),
+                title,
+                category,
+                summary,
+                content: content.replace(/\n/g, '<br>'),
+                image,
+                author: currentUser ? currentUser.fullName : 'Ban Biên Tập',
+                date: new Date().toLocaleDateString('vi-VN'),
+                views: 1,
+                likes: 0,
+                tags: [category, "Vĩnh Long", "Miền Tây"]
+            };
+
+            articles.unshift(newArticle);
+            db.saveArticles(articles);
+            renderAdminTab('articles');
+            showToast('Tạo và đăng bài viết thành công!', 'success');
+        }
+
+        function deleteArticle(artId) {
+            let articles = db.getArticles();
+            articles = articles.filter(a => a.id !== artId);
+            db.saveArticles(articles);
+            renderAdminTab('articles');
+            showToast('Đã xóa bài viết khỏi hệ thống.', 'success');
+        }
+
+        function handleSaveSettings(e) {
+            e.preventDefault();
+            const siteTitle = document.getElementById('setting-title').value.trim();
+            const heroTitle = document.getElementById('setting-herotitle').value.trim();
+            const heroSubtitle = document.getElementById('setting-herosub').value.trim();
+
+            const settings = { siteTitle, heroTitle, heroSubtitle };
+            db.saveSettings(settings);
+            updateNavbar();
+            showToast('Đã cập nhật cài đặt giao diện thành công!', 'success');
+        }
+
+        // ==================== INTERACTIVE FEATURES ====================
+
+        function likeArticle(artId) {
+            const articles = db.getArticles();
+            const article = articles.find(a => a.id === artId);
+            if (article) {
+                article.likes += 1;
+                db.saveArticles(articles);
+                document.getElementById('like-count').innerText = article.likes;
+                showToast('Cảm ơn bạn đã thích bài viết!', 'success');
+            }
+        }
+
+        function handleComment(e) {
+            e.preventDefault();
+            showToast('Gửi bình luận thành công! Bình luận đang chờ kiểm duyệt.', 'success');
+            e.target.reset();
+        }
+
+        // ==================== AI TRAVEL ASSISTANT ====================
+
+        function sendQuickPrompt(promptText) {
+            document.getElementById('ai-input').value = promptText;
+            handleAIChat(new Event('submit'));
+        }
+
+        function handleAIChat(e) {
+            e.preventDefault();
+            const inputEl = document.getElementById('ai-input');
+            const query = inputEl.value.trim();
+            if (!query) return;
+
+            const chatMessages = document.getElementById('chat-messages');
+
+            // Append User Message
+            chatMessages.innerHTML += `
+                <div class="flex items-start justify-end space-x-3">
+                    <div class="bg-emerald-600 text-white p-4 rounded-2xl rounded-tr-sm shadow-sm max-w-lg text-sm leading-relaxed">
+                        ${query}
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow">Bạn</div>
+                </div>
+            `;
+            inputEl.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Generate AI Response
+            setTimeout(() => {
+                let aiReply = "Vĩnh Long có rất nhiều điểm đến và món ăn tuyệt vời. Bạn có thể ghé thăm cù lao An Bình, làng gạch Mang Thít, thưởng thức cá tai tượng chiên xù và ghé chợ nổi Trà Ôn nhé!";
+                const qLower = query.toLowerCase();
+
+                if (qLower.includes('2 ngày') || qLower.includes('lịch trình') || qLower.includes('2n1đ')) {
+                    aiReply = "💡 **Gợi ý Lịch trình Du lịch Vĩnh Long 2 Ngày 1 Đêm:**<br><br>" +
+                              "**Ngày 1: Khám phá Cù lao An Bình & Làng gạch Mang Thít**<br>" +
+                              "- Sáng: Di chuyển đến phà An Bình, thuê xe đạp khám phá các vườn cây ăn trái (chôm chôm, nhãn), thưởng thức trái cây tại vườn.<br>" +
+                              "- Trưa: Thưởng thức đặc sản cá tai tượng chiên xù và bánh xèo củ hủ dừa tại nhà vườn.<br>" +
+                              "- Chiều: Ghé tham quan 'vương quốc đỏ' làng gạch gốm Mang Thít, chụp ảnh hoàng hôn bên dòng sông.<br>" +
+                              "- Tối: Nghỉ đêm tại homestay miệt vườn và thưởng thức đờn ca tài tử.<br><br>" +
+                              "**Ngày 2: Chợ nổi Trà Ôn & Văn Thánh Miếu**<br>" +
+                              "- Sáng sớm (5h30): Đi thuyền tham quan chợ nổi Trà Ôn nhộn nhịp, thưởng thức tô bún nước lèo và cà phê vợt trên ghe.<br>" +
+                              "- Trưa: Ghé thăm Văn Thánh Miếu Vĩnh Long, check-in công trình kiến trúc Nho giáo cổ kính trước khi kết thúc chuyến đi.";
+                } else if (qLower.includes('đặc sản') || qLower.includes('món ngon') || qLower.includes('ăn gì')) {
+                    aiReply = "🍲 **Top Đặc Sản Vĩnh Long Không Thể Bỏ Lỡ:**<br>" +
+                              "1. **Cá tai tượng chiên xù:** Giòn rụm, cuốn bánh tráng rau sống chấm nước mắm me.<br>" +
+                              "2. **Bánh xèo củ hủ dừa:** Nhân tôm thịt cùng củ hủ dừa ngọt giòn.<br>" +
+                              "3. **Khoai lang luộc nước dừa:** Đặc sản Bình Tân bùi béo thơm ngon.<br>" +
+                              "4. **Lẩu mắm rau đồng:** Đậm đà hương vị sông nước Nam Bộ.";
+                } else if (qLower.includes('mang thít') || qLower.includes('làng gạch')) {
+                    aiReply = "🧱 **Làng gạch gốm đỏ Mang Thít:**<br>" +
+                              "Nằm dọc bên dòng kênh rạch huyện Mang Thít, đây là 'vương quốc đỏ' với hàng ngàn lò nung gạch hình vòm độc đáo. Thời điểm chụp ảnh đẹp nhất là vào buổi sớm mai khi sương sớm còn mờ ảo hoặc lúc hoàng hôn buông xuống khói lam chiều.";
+                }
+
+                chatMessages.innerHTML += `
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-emerald-700 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow">AI</div>
+                        <div class="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm border border-slate-100 max-w-lg text-sm text-slate-700 leading-relaxed">
+                            ${aiReply}
+                        </div>
+                    </div>
+                `;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 600);
+        }
+
+        // Initialize application on load
+        window.onload = function() {
+            renderApp();
+        };
+    </script>
+</body>
+</html>
